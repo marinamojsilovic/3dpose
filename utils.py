@@ -16,6 +16,8 @@ NUMBER_OF_JOINTS = 17
 INPUT_HEIGHT = 1002
 INPUT_WIDTH  = 1000
 
+SCALING_FACTOR_3D = 1000
+
 JOINT_NAMES = {
     'hip':            0,
     'right hip':      1,
@@ -82,8 +84,8 @@ def normalize_3d(poses_3d):
    
 # fo 3d
 def compute_mpjpe(pred, gt):    
-    error = np.sqrt(((pred - gt)**2).sum(axis = -1))
-    return error
+    error = torch.sqrt(((pred - gt)**2).sum(axis = -1))
+    return error.mean() * SCALING_FACTOR_3D
 
 if __name__ == "__main__":
     

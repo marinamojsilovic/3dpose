@@ -14,8 +14,9 @@ class PoseTransformer(nn.Module):
         self.d_model = vector_size
         self.n_heads = n_heads
         self.n_layers = n_layers
-        self.encoding = self.SinPosEnc()
-
+        #self.encoding = self.SinPosEnc()
+        #for gpu mps
+        self.register_buffer('encoding', self.SinPosEnc())
         #embedding
         self.input_layer = nn.Linear(2, vector_size)
 
